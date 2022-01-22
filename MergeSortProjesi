@@ -1,0 +1,73 @@
+Proje 2
+[16,21,11,8,12,22] -> Merge Sort
+
+Yukarıdaki dizinin sort türüne göre aşamalarını yazınız.
+
+def mergeSort(myList):
+    if len(myList) > 1:
+        mid = len(myList) // 2
+        left = myList[:mid]
+        right = myList[mid:]
+
+        # Recursive call on each half
+        mergeSort(left)
+        mergeSort(right)
+
+        # Two iterators for traversing the two halves
+        i = 0
+        j = 0
+        
+        # Iterator for the main list
+        k = 0
+        
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+              # The value from the left half has been used
+              myList[k] = left[i]
+              # Move the iterator forward
+              i += 1
+            else:
+                myList[k] = right[j]
+                j += 1
+            # Move to the next slot
+            k += 1
+
+        # For all the remaining values
+        while i < len(left):
+            myList[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            myList[k]=right[j]
+            j += 1
+            k += 1
+
+myList = [16,21,11,8,12,22]
+mergeSort(myList)
+print(myList)
+
+
+Önce elemanlar tek kalana kadar dizi ikiye bölünür:
+1.adım dizi ikiye bölünür(divide):
+16 21 11 ve 8 12 22
+2.adım diziler tekrar ikiye bölünür:
+16 ve 21 11 ve 8 12 22
+3. adım diziler tekrar ikiye bölünür:
+16 ve 21 ve 11 sağ taraf değişmez
+4. adım sol taraf tek elemanlı kaldığına göre sondan başlayarak karşılaştırma ve birleştirme işlemi başlayabilir(merge):
+21 ve 11 karşılaştırılır. 11<21 olduğunda sorted liste eleman olarak 11,21 şeklinde eklenir
+5.adım 11,21 ile 16 karşılaştırılr. 11<16 ve 16<21 olduğundan sorted list 11,16,21 olur. Bu sayede dizinin sol yarısı sıralanmaış olur.
+6.adım şimdi dizinin müdahele edilmemiş sağ tarafını ele alalım. 8 12 22 dizisi ikiye bölünür. 8 ve 12 22
+7.adım tekrar ikiye bölelim. 8 ve 12 ve 22. 
+8.adım sağ taraftaki tüm elemanlar da tek başına kaldığına ve daha fazla bölünemedeğine göre birleştirmeye başlayalım sondan başlayarak.
+12<22 olduğundan 12,22 sorted list olur
+9.adım 8<12 olduğundan 8,12,22 sorted list olur.
+10.adım sorted iki liste 11,16,21 ve 8,12,22 karşılaştırılarak birleştirlir. 
+8<11 olduğundan 8,11
+12<16 olduğundan 8,11,12,16
+21<22 olduğundan 8,11,12,16,21,22 olur
+
+Big-O gösterimini yazınız.
+O(n.logn). Liste log(n) çağırma sayısı kadar bölünür ve birleştirme her fonksiyon çağırıldığında lineer zaman harcar.
+
